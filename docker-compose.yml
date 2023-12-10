@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  bot:
+    build:
+      context: .
+      args:
+        - DEV=${DEV}
+    init: true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "3m"
+        max-file: "3"
+    # restart: always
+    volumes:
+      - ./app:/app
+    environment:
+      - TELEGRAM_API_KEY=${TELEGRAM_API_KEY}
+      - BACKEND_ROOT_PATH=${BACKEND_ROOT_PATH}
+      - BACKEND_SECRET=${BACKEND_SECRET}
+    networks:
+      - invest_tools_network
+
+networks:
+  invest_tools_network:
+    external: true
