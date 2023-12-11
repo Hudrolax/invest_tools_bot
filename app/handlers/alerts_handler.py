@@ -35,9 +35,9 @@ def alert_list(items: list) -> str:
         _active = '' if alert['is_active'] else ' INACTIVE'
 
         formatted_list += f"{i}. {_symbol} {_trigger} {_price}{_active}\n"
-        if i > 30:
-            formatted_list += '\n...'
-            break
+        # if i > 30:
+        #     formatted_list += '\n...'
+        #     break
 
     return formatted_list
 
