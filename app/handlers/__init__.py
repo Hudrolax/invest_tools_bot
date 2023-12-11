@@ -1,0 +1,1 @@
+current_alerts_list: dict[str, int] = {}

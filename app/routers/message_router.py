@@ -1,6 +1,11 @@
 from aiogram import Router, types
 import logging
-from handlers.alerts_handler import alerts_cmd_handler, append_alert
+from handlers.alerts_handler import (
+    alerts_cmd_handler,
+    append_alert,
+    alerts_by_symbol,
+    del_alert,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -19,3 +24,9 @@ async def message_handler(message: types.Message, **kwargs) -> None:
 
         elif message.text.startswith('add '):
             await append_alert(message, **kwargs)
+
+        elif message.text.startswith('del '):
+            await del_alert(message, **kwargs)
+        
+        else:
+            await alerts_by_symbol(message, **kwargs)

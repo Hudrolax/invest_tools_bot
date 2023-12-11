@@ -22,6 +22,15 @@ async def get_user(user_id: int) -> dict:
     return user
 
 
+async def delete_alert(telegram_id: int, alert_id: int) -> bool:
+    kwargs = dict(
+        method='delete',
+        endpoint=f'/alerts/{alert_id}',
+        telegram_id=telegram_id,
+    )
+    return await request(**kwargs) # type: ignore
+
+
 async def get_alerts(
     params: GetAlerts,
     telegram_id: int | None = None,
