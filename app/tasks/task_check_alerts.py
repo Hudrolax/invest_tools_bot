@@ -20,7 +20,8 @@ async def task_check_alerts(
             triggered_alerts = await get_alerts(GetAlerts(is_sent=False, is_active=True, is_triggered=True))
             for alert in triggered_alerts:
                 user = await get_user(user_id=alert['user_id'])
-                text = f'{alert["symbol_name"]} is {alert["trigger"]} {
+                text = 'Alert is triggered!\n'
+                text += f'{alert["symbol_name"]} is {alert["trigger"]} {
                     format_number(alert["price"])}\nComment: {alert["comment"]}'
                 try:
                     await bot.send_message(

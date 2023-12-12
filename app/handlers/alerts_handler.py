@@ -13,6 +13,7 @@ def format_number(number_str: str) -> str:
         number_str = number_str.rstrip('0').rstrip('.')
     return number_str
 
+
 def alert_list(items: list) -> str:
     """Get alerts list
 
@@ -110,6 +111,7 @@ async def alerts_cmd_handler(message: Message, **kwargs) -> None:
 
 @async_traceback_errors(logger)
 async def append_alert(message: Message, **kwargs) -> None:
+    """A message handler for adding a new alert"""
     if not message.text:
         raise ValueError('message.text is None')
     if not message.from_user:
@@ -119,7 +121,7 @@ async def append_alert(message: Message, **kwargs) -> None:
         words = message.text.split()
         symbol = words[1].upper()
         trigger = words[2].lower()
-        price = words[3]
+        price = words[3].replace(',', '.')
 
         try:
             comment = words[4:]
@@ -127,7 +129,7 @@ async def append_alert(message: Message, **kwargs) -> None:
         except IndexError:
             comment = None
     except IndexError:
-        raise ClientError(message='Неверный формат добавления алерта!\nВерный:\n add BTCUSDT above 100000')
+        raise ClientError(message='Неверный формат добавления алерта!\nПример:\n add BTCUSDT above 100000 комментарий к алерту')
 
     await add_alert(
         telegram_id=message.from_user.id,
