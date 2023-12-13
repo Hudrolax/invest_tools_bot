@@ -120,8 +120,9 @@ async def append_alert(message: Message, **kwargs) -> None:
     try:
         words = message.text.split()
         symbol = words[1].upper()
-        trigger = words[2].lower()
+        trigger = words[2].lower().replace('>', 'above').replace('<', 'below')
         price = words[3].replace(',', '.')
+
 
         try:
             comment = words[4:]
