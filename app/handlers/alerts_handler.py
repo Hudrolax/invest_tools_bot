@@ -130,7 +130,10 @@ async def append_alert(message: Message, **kwargs) -> None:
         except IndexError:
             comment = None
     except IndexError:
-        raise ClientError(message='Неверный формат добавления алерта!\nПример:\n add BTCUSDT above 100000 комментарий к алерту')
+        text = 'Неверный формат добавления алерта!\n'
+        text += 'Пример:\n add BTCUSDT above (below) 100000 комментарий к алерту\n'
+        text += 'или add ethusdt < купить немного ETH'
+        raise ClientError(message=text)
 
     await add_alert(
         telegram_id=message.from_user.id,
@@ -146,4 +149,4 @@ async def append_alert(message: Message, **kwargs) -> None:
         params=GetAlerts(symbol_name=symbol, is_active=True, is_sent=False),
     )
 
-    await message.answer(f'Alerts:\n{alert_list(alerts)}')
+    await message.answer(f'{symbol} alerts:\n{alert_list(alerts)}')
