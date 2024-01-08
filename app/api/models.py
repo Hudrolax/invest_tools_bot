@@ -37,13 +37,13 @@ async def get_alerts(
 ) -> list:
     kwargs = dict(
         method='get',
-        endpoint='/alerts',
+        endpoint='/alerts/',
         params=params.model_dump(exclude_unset=True),
     )
     if telegram_id:
         kwargs['telegram_id'] = telegram_id # type: ignore
     else:
-        kwargs['endpoint'] += '/telegram_bot_api/' # type: ignore
+        kwargs['endpoint'] += 'telegram_bot_api/' # type: ignore
     
     alerts = await request(**kwargs) # type: ignore
     if not isinstance(alerts, list):
@@ -68,7 +68,7 @@ async def add_alert(
     )
     alert = await request(
         method='post',
-        endpoint='/alerts',
+        endpoint='/alerts/',
         telegram_id=telegram_id,
         json=payload,
     )
