@@ -18,11 +18,18 @@ async def message_handler(message: types.Message, **kwargs) -> None:
         logger.info('Got message not from a user.')
         return
 
+    if not message.text:
+        logger.info('Got message without text.')
+        return
+
+    
+    text = message.text.lower()
+
     if message.text:
-        if message.text.startswith('alerts'):
+        if text.startswith('alerts'):
             await alerts_cmd_handler(message, **kwargs)
 
-        elif message.text.startswith('add '):
+        elif text.startswith('add ') or '>' in text or '<' in text:
             await append_alert(message, **kwargs)
 
         elif message.text.startswith('del '):

@@ -116,7 +116,7 @@ async def append_alert(message: Message, **kwargs) -> None:
         raise ValueError('message.text is None')
     if not message.from_user:
         raise ValueError('message.from_user is None')
-
+    
     try:
         words = message.text.split()
         symbol = words[1].upper()
